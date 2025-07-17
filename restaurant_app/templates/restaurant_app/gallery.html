@@ -1,0 +1,19 @@
+{% extends 'restaurant_app/base.html' %}
+{% load static %}
+{% block title %}Gallery{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+<div class="container py-5">
+  <h2 class="text-center mb-4">Our Gallery</h2>
+  <div class="row">
+    {% for i in "123456" %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img src="{% static 'images/gallery'|add:i|add:'.jpg' %}" class="card-img-top" alt="Gallery {{ i }}">
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

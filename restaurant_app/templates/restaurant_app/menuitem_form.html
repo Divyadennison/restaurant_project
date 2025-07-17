@@ -1,0 +1,16 @@
+
+{% extends 'restaurant_app/base.html' %}
+
+{% block title %}{{ view.object.pk|yesno:"Update,Create" }} Menu Item{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ view.object.pk|yesno:"Update,Create" }} Menu Item</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'menu_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

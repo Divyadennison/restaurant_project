@@ -1,0 +1,41 @@
+{% extends 'restaurant_app/base.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Categories</h2>
+
+  <a href="{% url 'category_create' %}" class="btn btn-primary mb-3">+ Add Category</a>
+
+  {% if categories %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+          {% if category.pk %}
+            <tr>
+              <td>{{ category.name }}</td>
+              <td>
+                <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'category_delete' category.pk %}" class="btn btn-sm btn-danger">Delete</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="2" class="text-danger">Invalid category (missing ID)</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No categories available.</p>
+  {% endif %}
+</div>
+{% endblock %}

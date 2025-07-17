@@ -1,0 +1,57 @@
+{% extends 'restaurant_app/base.html' %}
+{% load static %}
+
+{% block title %}Our Menu | Fork & Flame{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="menu-header text-center mb-5">Explore Our Menu</h1>
+
+  {% for category in categories %}
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="category-title" id="category-{{ category.id }}">{{ category.name }}</h2>
+      {% if request.user.is_staff %}
+        <div>
+          <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+          <a href="{% url 'category_delete' category.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="row">
+      {% for item in category.menuitem_set.all %}
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card menu-card">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+          {% else %}
+            <img src="https://via.placeholder.com/400x220?text=No+Image" class="card-img-top" alt="No image">
+          {% endif %}
+
+          <div class="card-body">
+            <h5 class="menu-card-title">
+              {{ item.name }}
+              {% if item.price > 500 %}
+                <span class="badge-custom">Chef Special</span>
+              {% endif %}
+              {% if 'spicy' in item.description|lower %}
+                <span class="badge-custom">🌶️ Spicy</span>
+              {% endif %}
+            </h5>
+            <p class="menu-card-description">{{ item.description }}</p>
+            <div class="menu-card-price">₹{{ item.price }}</div>
+
+            {% if request.user.is_staff %}
+              <div class="mt-2">
+                <a href="{% url 'menuitem_update' item.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                <a href="{% url 'menuitem_delete' item.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

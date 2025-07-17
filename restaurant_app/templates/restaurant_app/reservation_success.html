@@ -1,0 +1,11 @@
+{% extends 'restaurant_app/base.html' %}
+
+{% block title %}Reservation Successful{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2 class="mb-3">Thank You!</h2>
+    <p>Your reservation has been successfully submitted. A confirmation email has been sent to you.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-4">Go Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'restaurant_app/base.html' %}
+{% block title %}Submit Review{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Leave a Review</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'restaurant_app/base.html' %}
+{% load static %}
+
+{% block title %}{{ menu_item.name }} Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 menu-detail-container">
+    <h2 class="menu-detail-title">{{ menu_item.name }}</h2>
+
+    {% if menu_item.image %}
+        <img src="{{ menu_item.image.url }}" class="img-fluid mb-3 menu-detail-image" alt="{{ menu_item.name }}">
+    {% endif %}
+
+    <p class="menu-detail-description">{{ menu_item.description }}</p>
+    <p class="menu-detail-price">₹{{ menu_item.price }}</p>
+
+    <a href="{% url 'menu_list' %}" class="btn btn-secondary mt-3">← Back to Menu</a>
+</div>
+{% endblock %}

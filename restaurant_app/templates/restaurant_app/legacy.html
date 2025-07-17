@@ -1,0 +1,53 @@
+{% extends 'restaurant_app/base.html' %}
+{% load static %}
+
+{% block title %}Our Legacy | Fork & Frames{% endblock %}
+
+{% block content %}
+
+
+<section class="legacy-hero text-white text-center d-flex align-items-center justify-content-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Our Story</h1>
+    <p class="lead">Rooted in tradition, seasoned with passion.</p>
+  </div>
+</section>
+
+
+<section class="legacy-content-section py-5">
+  <div class="container">
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6">
+        <img src="{% static 'images/legacy1.jpg' %}" alt="Legacy Image" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-6">
+        <h2 class="mb-3">A Heritage of Flavor</h2>
+        <p>
+          Fork & Frames was born out of a deep love for heritage recipes passed down through generations. What started
+          as a humble family kitchen evolved into a landmark of culinary excellence.
+        </p>
+      </div>
+    </div>
+
+    <div class="row align-items-center flex-row-reverse">
+      <div class="col-md-6">
+        <img src="{% static 'images/legacy2.jpg' %}" alt="Legacy Image 2" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-6">
+        <h2 class="mb-3">Crafted with Soul</h2>
+        <p>
+          Our chefs blend local ingredients with modern techniques to create unforgettable dishes. Every plate is
+          a tribute to the cultural richness and spirit of hospitality that defines us.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="text-center py-5 bg-light">
+  <h3 class="mb-4">Come be a part of our journey</h3>
+  <a href="{% url 'reservation' %}" class="btn btn-primary px-4 py-2">Reserve Your Table</a>
+</section>
+
+{% endblock %}

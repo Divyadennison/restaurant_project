@@ -1,0 +1,54 @@
+{% extends 'restaurant_app/base.html' %}
+
+{% block title %}Order Online | Fork & Flame{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">🛒 Place Your Order</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+       
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for item in menu_items %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="{{ item.name }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text text-muted">{{ item.description }}</p>
+                        <p class="fw-bold text-danger">₹{{ item.price }}</p>
+                        <input type="number" name="quantity_{{ item.id }}" min="0" value="0" class="form-control mt-auto" placeholder="Quantity">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr class="my-5">
+
+        <!-- Customer Details -->
+        <h4 class="mb-3">🧾 Your Details</h4>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <input type="text" name="customer_name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+            </div>
+            <div class="col-12">
+                <textarea name="address" class="form-control" rows="3" placeholder="Full Delivery Address" required></textarea>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success px-4 py-2 fw-bold">
+                🚚 Submit Order
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'restaurant_app/base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard | Fork & Frames{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 text-center">🛠️ Admin Dashboard</h2>
+   
+<div class="row text-center mb-5">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Reservations</h6>
+                <h3 class="text-primary">{{ total_reservations }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Orders</h6>
+                <h3 class="text-success">{{ total_orders }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Reviews</h6>
+                <h3 class="text-warning">{{ total_reviews }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="admin-section mb-5">
+        <h4 class="mb-3">📋 Reservations</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm bg-white">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>People</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
+                    <tr>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.date }}</td>
+                        <td>{{ r.time }}</td>
+                        <td>{{ r.people }}</td>
+                        <td>{{ r.message }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No reservations found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+ 
+    <div class="admin-section mb-5">
+        <h4 class="mb-3">🛒 Orders</h4>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm bg-white">
+                <thead class="table-light">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Items</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for o in orders %}
+                    <tr>
+                        <td>{{ o.customer_name }}</td>
+                        <td>{{ o.phone }}</td>
+                        <td>{{ o.address }}</td>
+                        <td>
+                            <ul class="mb-0 ps-3">
+                                {% for item in o.items.all %}
+                                <li>{{ item.menu_item.name }} x{{ item.quantity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ o.created_at|date:"Y-m-d H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No orders found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <div class="admin-section mb-5">
+        <h4 class="d-flex justify-content-between align-items-center">
+            🍽️ Menu Items
+            <a href="{% url 'menuitem_create' %}" class="btn btn-success btn-sm">+ Add New Item</a>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover shadow-sm bg-white">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in menu_items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.category.name }}</td>
+                        <td>₹{{ item.price }}</td>
+                        <td><a href="{% url 'menuitem_edit' item.id %}" class="btn btn-warning btn-sm">Edit</a></td>
+                        <td><a href="{% url 'menuitem_delete' item.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No menu items found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+ 
+    <div class="admin-section mb-5">
+        <h4 class="d-flex justify-content-between align-items-center">
+            📂 Categories
+            <a href="{% url 'category_create' %}" class="btn btn-success btn-sm">+ Add New Category</a>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm bg-white">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td><a href="{% url 'category_edit' category.id %}" class="btn btn-warning btn-sm">Edit</a></td>
+                        <td><a href="{% url 'category_delete' category.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3">No categories found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
