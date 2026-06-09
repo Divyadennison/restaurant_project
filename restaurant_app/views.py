@@ -52,7 +52,7 @@ def menu_detail(request, item_id):
     item = get_object_or_404(MenuItem, id=item_id)
     return render(request, 'restaurant_app/menu_detail.html', {'item': item})
 
-@login_required
+
 def reservation(request):
     form = ReservationForm()
     if request.method == 'POST':
@@ -83,14 +83,14 @@ def reservation(request):
 
     return render(request, 'restaurant_app/reservation.html', {'form': form})
 
-@login_required
+
 def reservation_success(request):
     return render(request, 'restaurant_app/reservation_success.html')
 
 def contact(request):
     return render(request, 'restaurant_app/contact.html')
 
-@login_required
+
 def place_order(request):
     menu_items = MenuItem.objects.all()
     if request.method == 'POST':
