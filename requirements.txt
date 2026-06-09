@@ -1,0 +1,8 @@
+asgiref==3.9.1
+Django==5.2.4
+gunicorn==26.0.0
+packaging==26.2
+pillow==11.3.0
+sqlparse==0.5.3
+wheel==0.45.1
+whitenoise==6.12.0

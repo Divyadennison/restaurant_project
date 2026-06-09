@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%fhyr2o2sp#e=e1v-)rph3yecb(m#%!i5l3oionwr5#7yl&m9s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -44,6 +44,7 @@ LOGIN_REDIRECT_URL = '/dashboard-redirect/'
 LOGOUT_REDIRECT_URL = '/login/' 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -118,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -130,12 +131,13 @@ import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'divyadennison@gmail.com'
-EMAIL_HOST_PASSWORD = 'sfow tvsl mmbu hsge'  
+EMAIL_HOST_PASSWORD = 'ycke ywpz ckma ylrk'
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
         
 
