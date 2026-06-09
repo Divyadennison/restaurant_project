@@ -55,34 +55,50 @@ def menu_detail(request, item_id):
 
 def reservation(request):
     form = ReservationForm()
+
     if request.method == 'POST':
         form = ReservationForm(request.POST)
+
         if form.is_valid():
             reservation = form.save()
 
-            
-            subject = 'Your Reservation is Confirmed'
-            message = (
-                f"Hi {reservation.name},\n\n"
-                f"Your reservation on {reservation.date} at {reservation.time} "
-                f"for {reservation.guests} guest(s) has been confirmed.\n\nThank you!"
-            )
-            send_mail(subject, message, settings.EMAIL_HOST_USER, [reservation.email], fail_silently=False)
+            # Email sending temporarily disabled
 
-           
-            staff_subject = 'New Reservation Received'
-            staff_message = (
-                f"New reservation from {reservation.name}.\n\n"
-                f"Date: {reservation.date}\nTime: {reservation.time}\n"
-                f"Guests: {reservation.guests}\nEmail: {reservation.email}\nPhone: {reservation.phone}"
-            )
-            send_mail(staff_subject, staff_message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
+            # subject = 'Your Reservation is Confirmed'
+            # message = (
+            #     f"Hi {reservation.name},\n\n"
+            #     f"Your reservation on {reservation.date} at {reservation.time} "
+            #     f"for {reservation.guests} guest(s) has been confirmed.\n\nThank you!"
+            # )
+            # send_mail(
+            #     subject,
+            #     message,
+            #     settings.EMAIL_HOST_USER,
+            #     [reservation.email],
+            #     fail_silently=False
+            # )
 
-            messages.success(request, 'Reservation successful! A confirmation email has been sent.')
+            # staff_subject = 'New Reservation Received'
+            # staff_message = (
+            #     f"New reservation from {reservation.name}.\n\n"
+            #     f"Date: {reservation.date}\n"
+            #     f"Time: {reservation.time}\n"
+            #     f"Guests: {reservation.guests}\n"
+            #     f"Email: {reservation.email}\n"
+            #     f"Phone: {reservation.phone}"
+            # )
+            # send_mail(
+            #     staff_subject,
+            #     staff_message,
+            #     settings.EMAIL_HOST_USER,
+            #     [settings.EMAIL_HOST_USER],
+            #     fail_silently=True
+            # )
+
+            messages.success(request, 'Reservation successful!')
             return redirect('reservation_success')
 
     return render(request, 'restaurant_app/reservation.html', {'form': form})
-
 
 def reservation_success(request):
     return render(request, 'restaurant_app/reservation_success.html')
